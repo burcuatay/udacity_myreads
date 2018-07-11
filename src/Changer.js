@@ -5,7 +5,6 @@ import PropTypes from 'prop-types'
 
 function Changer(props) {
 		const { book, moveTo } = props; 
-
 		return (
 		<div className="book-shelf-changer">
 				<select value={book.shelf ? book.shelf : 'none'} onChange={(event) => moveTo(book, event.target.value)}>

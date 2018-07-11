@@ -4,7 +4,7 @@ import Changer from './Changer'
 class Shelves extends Component{
 
 	render(){
-		
+
 		return(
 			<div className="bookshelf">
 				<h2 className="bookshelf-title">{this.props.title}</h2>
@@ -16,8 +16,8 @@ class Shelves extends Component{
 								return(
 									<li key={book.id}>
 									<div className="book">
-                          <div className="book-top">
-                            <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url("${book.imageLinks?book.imageLinks.thumbnail:`http://via.placeholder.com/128x193?text=No%20Cover`}")` }}></div>
+                          			<div className="book-top">
+                            <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url("${book.imageLinks?book.imageLinks.thumbnail:`http://via.placeholder.com/128x193?text=No%20Cover`}")` }}> </div>
                           <Changer
 								book={book}
 								moveTo={moveTo}/>
