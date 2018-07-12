@@ -3,6 +3,7 @@ import * as BooksAPI from './BooksAPI'
 import { Route, Link } from 'react-router-dom'
 import './App.css'
 import Shelves from './Shelves'
+import Search from './Search'
 
 class BooksApp extends React.Component {
   
@@ -27,18 +28,28 @@ componentWillMount() {
 })
 }
 
-moveTo = (book, shelf) => {
+moveTo (book, shelf) {
+  book.shelf = shelf;
 	BooksAPI.update(book, shelf).then(obj => {
-      console.log(obj, "this is the obj")
-    	if (obj) {
-        this.setState({status: obj})
+    	
+      	if (obj) {
+          console.log(this.state, 'state')
+         this.setState({status: obj, a:'b'})
+          console.log(obj, "this is the obj")
         }
+      
     })
   }
 
 
   render() {
     const { allBooks, status } = this.state;
+const titles = {
+       currentlyReading:'Currently Reading',
+      wantToRead:'Want to Read',
+      read:'Read'
+}
+console.log(status,'status')
 	if (allBooks.length === 0) return null;
     return (
       <div className="app">
@@ -62,8 +73,8 @@ moveTo = (book, shelf) => {
 				<Shelves 
 					key={shelf} 
 					relatedBooks={relatedBooks}
-					title={shelf} 
-					moveTo={this.moveTo}/>
+					title={titles[shelf]} 
+					moveTo={this.moveTo.bind(this)}/>
          )
         })}
 			</div>
@@ -83,23 +94,13 @@ moveTo = (book, shelf) => {
 <Route
 	path='/search'
 		render={() => (
-			<div>
+			<Search 
                 
-              <div className="search-books">
-                
-            	<div className="search-books-bar">
-                       <div className="search-books-input-wrapper">
-                	   <input type="text" placeholder="Search by title or author"/>
-                	   </div>
-                 </div>
-                
-               <div className="search-books-results">
-              		   <ol className="books-grid"></ol>
-              		   <Link className="close-search" to='/'>Back</Link>
-               </div>
-                
-             </div>
-            </div>
+                />
+              <div className="search-books-results">
+              <ol className="books-grid"></ol>
+              <Link className="close-search" to='/'>Back</Link>
+    </div>
 					)}
 		/>
 
