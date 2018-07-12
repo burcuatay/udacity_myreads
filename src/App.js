@@ -8,21 +8,38 @@ class BooksApp extends React.Component {
   
   state = {
     allBooks:[],
-    status:['Currently Reading', 'Want to Read', 'Read'],
-  }
+    status: {}
+ }
 
-componentDidMount() {
-	BooksAPI.getAll().then(books => (
-	this.setState({allBooks: books})
-	))
-	}
+componentWillMount() {
+	BooksAPI.getAll().then(books => {
+	this.setState({allBooks: books});
+	const allBooksId = books.map( book => book.id );
+	const initialState = {
+      currentlyReading:[],
+      wantToRead:[],
+      read:[]
+    }
+	books.forEach(b => initialState[ b.shelf ].push(b.id) );
+	console.log(initialState, "initialState");
+	this.setState({status: initialState });
+	console.log(books);
+})
+}
 
 moveTo = (book, shelf) => {
-	BooksAPI.update(book, shelf)
+	BooksAPI.update(book, shelf).then(obj => {
+      console.log(obj, "this is the obj")
+    	if (obj) {
+        this.setState({status: obj})
+        }
+    })
   }
 
 
   render() {
+    const { allBooks, status } = this.state;
+	if (allBooks.length === 0) return null;
     return (
       <div className="app">
        
@@ -36,15 +53,19 @@ moveTo = (book, shelf) => {
 
       	<div className="list-books-content">
     		<div>
-    		{this.state.status.map(shelf => {
-				return(
+    {Object.keys(status).map(shelf=>{
+      	const relatedBooks = [];
+        status[shelf].forEach(bookId => relatedBooks.push.apply(relatedBooks, allBooks.filter(book => book.id === bookId)) )
+         console.log(relatedBooks, 'relatedBooks', shelf)
+         if (!relatedBooks) return null;
+         return(
 				<Shelves 
 					key={shelf} 
-					allBooks={this.state.allBooks}
+					relatedBooks={relatedBooks}
 					title={shelf} 
 					moveTo={this.moveTo}/>
-				)
-			})}
+         )
+        })}
 			</div>
         </div>
     
