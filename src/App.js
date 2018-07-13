@@ -94,14 +94,13 @@ console.log(status,'status')
 <Route
 	path='/search'
 		render={() => (
-			<Search 
+               <div> 
+                 
+                <Search 
                 
                 />
-              <div className="search-books-results">
-              <ol className="books-grid"></ol>
-              <Link className="close-search" to='/'>Back</Link>
-    </div>
-					)}
+                </div>
+                )}
 		/>
 
 
