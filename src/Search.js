@@ -37,10 +37,10 @@ render(){
       </div>
     
      <div className="search-books-results">
-              <ol className="books-grid"></ol>
-			<Shelves
-			
-/>
+              <ol className="books-grid"></ol>	
+	<Shelves
+			 
+			/>
      </div>
     
     <Link className="close-search" to='/'>Back</Link>

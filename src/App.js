@@ -95,10 +95,17 @@ console.log(status,'status')
 	path='/search'
 		render={() => (
                <div> 
-                 
-                <Search 
-                
-                />
+             
+    
+				<Search
+				moveTo={this.moveTo.bind(this)}
+					/>
+         )
+        })}
+			
+				
+         )
+        })}
                 </div>
                 )}
 		/>
