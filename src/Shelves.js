@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import Changer from './Changer'
 import Book from './Book'
 
 
@@ -16,7 +15,10 @@ class Shelves extends Component{
 							.map((book) => {
           console.log(book.imageLinks ? book.imageLinks.thumbnail: 'no cover', "book here!!!")
 								return(
-									<Book />
+									<Book 
+									book={book}
+                                  	moveTo={this.props.moveTo}
+                                  />
 								)
 							})}
 					</ol>
