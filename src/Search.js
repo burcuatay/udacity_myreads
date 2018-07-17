@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import * as BooksAPI from './BooksAPI'
 import Book from './Book'
+import searchTerms from './searchTerms'
 
 class Search extends React.Component{
 
@@ -11,19 +12,19 @@ state = {
  }
   
 enterKey (e)  {
-  if(e.key === 'Enter'){
+  if(e.key === 'Enter' && searchTerms.includes(this.state.query)){
     BooksAPI.search(this.state.query, 20).then(data => {if (data){
     this.setState({books: data})
     }});
-    console.log("Enter is pressed!");
   }
 }
 
 searchChange(query) {
-if(query === "") {this.setState({book: []})}
-  else {
-  this.setState({query});
+if(query === "") {
+  this.setState({books: []})
 }
+
+this.setState({query});
 }
 
 render(){
@@ -43,8 +44,8 @@ render(){
 				{this.state.books.map((book) => {
           console.log(book.imageLinks ? book.imageLinks.thumbnail: 'no cover', "book here!!!")
 								return(
-									<Book 
-									book={book}
+									<Book  
+                 					book={book}
                                   	moveTo={this.props.moveTo}
                                   />
 								)

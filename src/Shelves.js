@@ -15,7 +15,7 @@ class Shelves extends Component{
 							.map((book) => {
           console.log(book.imageLinks ? book.imageLinks.thumbnail: 'no cover', "book here!!!")
 								return(
-									<Book 
+									<Book  
 									book={book}
                                   	moveTo={this.props.moveTo}
                                   />

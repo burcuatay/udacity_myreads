@@ -98,8 +98,7 @@ console.log(status,'status')
 				<Search
 				moveTo={this.moveTo.bind(this)}
 					/>
-         )
-        })}
+        
                 </div>
                 )}
 		/>
