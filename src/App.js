@@ -9,7 +9,7 @@ class BooksApp extends React.Component {
   
   state = {
     allBooks:[],
-    status: {}
+    status: {},
  }
 
 componentWillMount() {
@@ -95,15 +95,9 @@ console.log(status,'status')
 	path='/search'
 		render={() => (
                <div> 
-             
-    
 				<Search
 				moveTo={this.moveTo.bind(this)}
 					/>
-         )
-        })}
-			
-				
          )
         })}
                 </div>

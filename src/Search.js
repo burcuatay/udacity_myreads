@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import * as BooksAPI from './BooksAPI'
-import Shelves from './Shelves'
+import Book from './Book'
 
 class Search extends React.Component{
 
@@ -20,8 +20,10 @@ enterKey (e)  {
 }
 
 searchChange(query) {
-	this.setState({query});
-	
+if(query === "") {this.setState({book: []})}
+  else {
+  this.setState({query});
+}
 }
 
 render(){
@@ -37,10 +39,18 @@ render(){
       </div>
     
      <div className="search-books-results">
-              <ol className="books-grid"></ol>	
-	<Shelves
-			 
-			/>
+              <ol className="books-grid">
+				{this.state.books.map((book) => {
+          console.log(book.imageLinks ? book.imageLinks.thumbnail: 'no cover', "book here!!!")
+								return(
+									<Book 
+									book={book}
+                                  	moveTo={this.props.moveTo}
+                                  />
+								)
+							})}
+</ol>	
+
      </div>
     
     <Link className="close-search" to='/'>Back</Link>
