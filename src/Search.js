@@ -11,20 +11,19 @@ state = {
   	books:[]
  }
   
-enterKey (e)  {
-  if(e.key === 'Enter' && searchTerms.includes(this.state.query)){
-    BooksAPI.search(this.state.query, 20).then(data => {if (data){
-    this.setState({books: data})
-    }});
-  }
-}
-
 searchChange(query) {
 if(query === "") {
   this.setState({books: []})
 }
 
 this.setState({query});
+
+ if(searchTerms.includes(this.state.query)){
+    BooksAPI.search(this.state.query, 20).then(data => {if (data){
+    this.setState({books: data})
+    }});
+  }
+
 }
 
 render(){
@@ -35,7 +34,7 @@ render(){
      
      <div className="search-books-bar">
             <div className="search-books-input-wrapper">
-            <input type="text" placeholder="Search by title or author" onKeyDown={this.enterKey.bind(this)} onChange={(event)=> this.searchChange(event.target.value)} value={this.state.query}/>
+            <input type="text" placeholder="Search by title or author" onChange={(event)=> this.searchChange(event.target.value)} value={this.state.query}/>
             </div>
       </div>
     
