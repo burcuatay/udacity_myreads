@@ -18,15 +18,26 @@ if(query === "") {
 
 this.setState({query});
 
- if(searchTerms.includes(this.state.query)){
+ if(searchTerms.includes(query)){
     BooksAPI.search(this.state.query, 20).then(data => {if (data){
     this.setState({books: data})
     }});
   }
-
 }
 
+
+
 render(){
+  const checkShelves = (book) => {
+	let shelf = 'None';
+	Object.keys(this.props.status).forEach(shelfKey=>{
+		if (this.props.status[shelf].includes(book.id)){
+		shelf = shelfKey;
+		}
+	})
+	return shelf
+}
+
   return (
    <div>
      
@@ -41,11 +52,12 @@ render(){
      <div className="search-books-results">
               <ol className="books-grid">
 				{this.state.books.map((book) => {
-          console.log(book.imageLinks ? book.imageLinks.thumbnail: 'no cover', "book here!!!")
+                 const currentBookShelf = checkShelves(book)
 								return(
 									<Book  
                  					book={book}
                                   	moveTo={this.props.moveTo}
+									shelf={currentBookShelf}
                                   />
 								)
 							})}

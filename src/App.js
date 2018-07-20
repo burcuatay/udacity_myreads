@@ -97,6 +97,7 @@ console.log(status,'status')
                <div> 
 				<Search
 				moveTo={this.moveTo.bind(this)}
+				status={status}
 					/>
         
                 </div>
