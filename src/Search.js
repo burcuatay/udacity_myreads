@@ -2,7 +2,6 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import * as BooksAPI from './BooksAPI'
 import Book from './Book'
-import searchTerms from './searchTerms'
 
 class Search extends React.Component{
 
@@ -18,25 +17,24 @@ if(query === "") {
 
 this.setState({query});
 
- if(searchTerms.includes(query)){
     BooksAPI.search(this.state.query, 20).then(data => {if (data){
     this.setState({books: data})
     }});
-  }
 }
-
 
 
 render(){
   const checkShelves = (book) => {
-	let shelf = 'None';
+	let shelf = 'none';
 	Object.keys(this.props.status).forEach(shelfKey=>{
-		if (this.props.status[shelf].includes(book.id)){
+		if (this.props.status[shelfKey].includes(book.id)){
 		shelf = shelfKey;
 		}
 	})
 	return shelf
 }
+
+
 
   return (
    <div>
@@ -53,12 +51,13 @@ render(){
               <ol className="books-grid">
 				{this.state.books.map((book) => {
                  const currentBookShelf = checkShelves(book)
+                 console.log(currentBookShelf);
+                 book.shelf = currentBookShelf;
 								return(
-									<Book  
-                 					book={book}
-                                  	moveTo={this.props.moveTo}
-									shelf={currentBookShelf}
-                                  />
+                  <Book
+                    book={book}
+                    moveTo={this.props.moveTo}
+                  />
 								)
 							})}
 </ol>	
